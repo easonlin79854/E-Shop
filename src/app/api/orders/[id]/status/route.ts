@@ -6,7 +6,7 @@ import { OrderStatus } from '@prisma/client';
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -21,8 +21,10 @@ export async function PATCH(
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
     }
 
+    const { id } = await params;
+
     const order = await prisma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: { status },
       include: {
         user: { select: { email: true } },

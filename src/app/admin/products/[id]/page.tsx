@@ -5,13 +5,14 @@ import { ProductForm } from '@/components/ProductForm';
 export default async function AdminEditProductPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const isNew = params.id === 'new';
+  const { id } = await params;
+  const isNew = id === 'new';
 
   const product = isNew
     ? null
-    : await prisma.product.findUnique({ where: { id: params.id } });
+    : await prisma.product.findUnique({ where: { id } });
 
   if (!isNew && !product) {
     notFound();

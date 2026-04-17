@@ -5,7 +5,7 @@ import { notFound, redirect } from 'next/navigation';
 export default async function OrderDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await auth();
 
@@ -13,8 +13,10 @@ export default async function OrderDetailPage({
     redirect('/login');
   }
 
+  const { id } = await params;
+
   const order = await prisma.order.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       items: { include: { product: true } },
       user: { select: { email: true, name: true } },

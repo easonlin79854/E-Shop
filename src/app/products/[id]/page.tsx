@@ -5,10 +5,11 @@ import { AddToCartForm } from '@/components/AddToCartForm';
 export default async function ProductDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
   const product = await prisma.product.findUnique({
-    where: { id: params.id, isActive: true },
+    where: { id, isActive: true },
   });
 
   if (!product) {
