@@ -35,7 +35,7 @@ export default async function ProductsPage() {
                     {product.description}
                   </p>
                   <div className="mt-3 flex items-center justify-between">
-                    <span className="text-xl font-bold text-indigo-600">
+                    <span className="text-xl font-bold text-primary-600">
                       ${Number(product.price).toFixed(2)}
                     </span>
                     <span className="text-sm text-gray-500">

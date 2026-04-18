@@ -72,6 +72,19 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Delete product error:', error);
+
+    // Prisma foreign key constraint violation (product is referenced by order items)
+    if (
+      error instanceof Error &&
+      'code' in error &&
+      (error as { code: string }).code === 'P2003'
+    ) {
+      return NextResponse.json(
+        { error: '此商品已被訂單引用，無法刪除。請先取消相關訂單後再試。' },
+        { status: 409 }
+      );
+    }
+
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -50,7 +50,7 @@ export default function RegisterPage() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
         </div>
         <div>
@@ -62,7 +62,7 @@ export default function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
         </div>
         <div>
@@ -75,20 +75,20 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
         </div>
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 disabled:opacity-50"
+          className="w-full bg-primary-600 text-white py-2 rounded-md hover:bg-primary-700 disabled:opacity-50"
         >
           {loading ? 'Creating account...' : 'Create Account'}
         </button>
       </form>
       <p className="mt-4 text-center text-sm text-gray-600">
         Already have an account?{' '}
-        <Link href="/login" className="text-indigo-600 hover:underline">
+        <Link href="/login" className="text-primary-600 hover:underline">
           Sign in
         </Link>
       </p>

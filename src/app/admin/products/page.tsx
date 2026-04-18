@@ -13,7 +13,7 @@ export default async function AdminProductsPage() {
         <h1 className="text-3xl font-bold">Products</h1>
         <Link
           href="/admin/products/new"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+          className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700"
         >
           Add Product
         </Link>
@@ -50,7 +50,7 @@ export default async function AdminProductsPage() {
                   <div className="flex gap-2">
                     <Link
                       href={`/admin/products/${product.id}`}
-                      className="text-sm text-indigo-600 hover:underline"
+                      className="text-sm text-primary-600 hover:underline"
                     >
                       Edit
                     </Link>

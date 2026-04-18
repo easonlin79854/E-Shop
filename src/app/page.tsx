@@ -15,14 +15,14 @@ export default async function Home() {
       <div className="flex justify-center gap-4">
         <Link
           href="/products"
-          className="bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 text-lg"
+          className="bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700 text-lg"
         >
           Browse Products
         </Link>
         {!session && (
           <Link
             href="/register"
-            className="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-md hover:bg-indigo-50 text-lg"
+            className="border border-primary-600 text-primary-600 px-6 py-3 rounded-md hover:bg-primary-50 text-lg"
           >
             Get Started
           </Link>

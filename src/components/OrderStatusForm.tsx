@@ -62,7 +62,7 @@ export function OrderStatusForm({
       <button
         type="submit"
         disabled={loading}
-        className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 disabled:opacity-50"
+        className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 disabled:opacity-50"
       >
         {loading ? 'Updating...' : 'Update Status'}
       </button>
