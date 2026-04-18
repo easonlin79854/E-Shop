@@ -93,12 +93,12 @@ export default function AdminUsersPage() {
           type="submit"
           className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700"
         >
-          {lang === 'zh' ? '搜尋' : 'Search'}
+          {t.searchBtn}
         </button>
       </form>
 
       {loading ? (
-        <p className="text-gray-500 dark:text-gray-400">{lang === 'zh' ? '載入中...' : 'Loading...'}</p>
+        <p className="text-gray-500 dark:text-gray-400">{t.loadingText}</p>
       ) : (
         <div className="border dark:border-gray-700 rounded-lg overflow-hidden">
           <table className="w-full">

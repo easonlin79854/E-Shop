@@ -63,6 +63,8 @@ export const translations = {
     demoteToCustomer: '降為顧客',
     lastAdminError: '無法降級最後一位 Admin，系統至少需要一位管理員。',
     userRoleUpdated: '角色已更新',
+    searchBtn: '搜尋',
+    loadingText: '載入中...',
 
     // Product form
     formNameLabel: '名稱 *',
@@ -155,6 +157,8 @@ export const translations = {
     demoteToCustomer: 'Demote to Customer',
     lastAdminError: 'Cannot demote the last admin. At least one admin is required.',
     userRoleUpdated: 'Role updated',
+    searchBtn: 'Search',
+    loadingText: 'Loading...',
 
     // Product form
     formNameLabel: 'Name *',

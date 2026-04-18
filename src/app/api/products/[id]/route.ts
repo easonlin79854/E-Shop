@@ -13,8 +13,7 @@ function isForeignKeyError(error: unknown): boolean {
   if (
     msg.includes('23001') ||
     msg.includes('foreign key constraint') ||
-    msg.includes('violates RESTRICT') ||
-    msg.toLowerCase().includes('orderitem_productid_fkey')
+    msg.includes('violates RESTRICT')
   ) {
     return true;
   }
