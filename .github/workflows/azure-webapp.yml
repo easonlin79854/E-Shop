@@ -1,6 +1,8 @@
+name: Build and Deploy (Azure Web App)
+
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -24,16 +26,7 @@ jobs:
 
       - name: Prisma generate
         run: npx prisma generate
-        
-      - name: Build
-        env:
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npm run build
-        
+
       - name: Check DATABASE_URL is present (safe)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -43,16 +36,22 @@ jobs:
             exit 1
           fi
           echo "DATABASE_URL length: ${#DATABASE_URL}"
-          
+
       - name: Prisma db push (create/update schema)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: npx prisma db push
 
-      - name: Build
+      - name: Build (with runtime env)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
         run: npm run build
 
-      - name: Deploy to Azure WebApp
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: "E-Shop"
