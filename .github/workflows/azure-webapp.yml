@@ -25,6 +25,15 @@ jobs:
       - name: Prisma generate
         run: npx prisma generate
         
+      - name: Build
+        env:
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run build
+        
       - name: Check DATABASE_URL is present (safe)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
