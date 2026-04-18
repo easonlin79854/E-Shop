@@ -24,7 +24,17 @@ jobs:
 
       - name: Prisma generate
         run: npx prisma generate
-
+        
+      - name: Check DATABASE_URL is present (safe)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "DATABASE_URL is empty"
+            exit 1
+          fi
+          echo "DATABASE_URL length: ${#DATABASE_URL}"
+          
       - name: Prisma db push (create/update schema)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
