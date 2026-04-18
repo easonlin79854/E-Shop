@@ -1,6 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/lib/auth';
+import { translations } from '@/lib/i18n';
+
+/** Returns true when the error indicates a foreign-key / RESTRICT violation */
+function isForeignKeyError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  // Prisma known-request error with code P2003
+  if ('code' in error && (error as { code: string }).code === 'P2003') return true;
+  // PrismaClientUnknownRequestError – Postgres code 23001 surfaced in the message
+  const msg = error.message;
+  if (
+    msg.includes('23001') ||
+    msg.includes('foreign key constraint') ||
+    msg.includes('violates RESTRICT') ||
+    msg.toLowerCase().includes('orderitem_productid_fkey')
+  ) {
+    return true;
+  }
+  return false;
+}
+
+/** Pick zh/en from Accept-Language header (defaults to zh) */
+function pickLang(req: NextRequest): 'zh' | 'en' {
+  const al = req.headers.get('accept-language') ?? '';
+  return al.toLowerCase().startsWith('en') ? 'en' : 'zh';
+}
 
 export async function GET(
   _req: NextRequest,
@@ -56,7 +81,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
@@ -73,16 +98,10 @@ export async function DELETE(
   } catch (error) {
     console.error('Delete product error:', error);
 
-    // Prisma foreign key constraint violation (product is referenced by order items)
-    if (
-      error instanceof Error &&
-      'code' in error &&
-      (error as { code: string }).code === 'P2003'
-    ) {
-      return NextResponse.json(
-        { error: '此商品已被訂單引用，無法刪除。請先取消相關訂單後再試。' },
-        { status: 409 }
-      );
+    if (isForeignKeyError(error)) {
+      const lang = pickLang(req);
+      const message = translations[lang].deleteProductReferenced;
+      return NextResponse.json({ error: message }, { status: 409 });
     }
 
     return NextResponse.json(
