@@ -34,7 +34,7 @@ export default async function ProductDetailPage({
         </div>
         <div>
           <h1 className="text-3xl font-bold">{product.name}</h1>
-          <p className="text-3xl font-bold text-indigo-600 mt-2">
+          <p className="text-3xl font-bold text-primary-600 mt-2">
             ${Number(product.price).toFixed(2)}
           </p>
           {product.description && (

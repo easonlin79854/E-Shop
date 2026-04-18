@@ -15,7 +15,7 @@ export default async function CheckoutPage() {
       <p className="text-gray-600 mb-6">
         To place an order, visit a product page and click &quot;Buy Now&quot;.
       </p>
-      <Link href="/products" className="bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700">
+      <Link href="/products" className="bg-primary-600 text-white px-6 py-3 rounded-md hover:bg-primary-700">
         Browse Products
       </Link>
     </div>

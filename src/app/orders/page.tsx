@@ -22,7 +22,7 @@ export default async function OrdersPage() {
       {orders.length === 0 ? (
         <div className="text-center py-10">
           <p className="text-gray-500 mb-4">You haven&apos;t placed any orders yet.</p>
-          <Link href="/products" className="text-indigo-600 hover:underline">
+          <Link href="/products" className="text-primary-600 hover:underline">
             Browse Products
           </Link>
         </div>

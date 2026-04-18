@@ -60,7 +60,7 @@ export function AddToCartForm({ product }: { product: Product }) {
       <button
         onClick={handleOrder}
         disabled={loading || product.stock === 0}
-        className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 disabled:opacity-50"
+        className="w-full bg-primary-600 text-white py-3 rounded-md hover:bg-primary-700 disabled:opacity-50"
       >
         {loading ? 'Placing order...' : 'Buy Now'}
       </button>
