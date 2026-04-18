@@ -29,4 +29,4 @@ export const translations = {
   },
 } as const;
 
-export type Translations = typeof translations[Lang];
+export type Translations = (typeof translations)[Lang];
