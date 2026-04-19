@@ -65,6 +65,28 @@ export const translations = {
     userRoleUpdated: '角色已更新',
     searchBtn: '搜尋',
     loadingText: '載入中...',
+    editNameBtn: '編輯名稱',
+    editUserTitle: '編輯使用者',
+    saveBtn: '儲存',
+    deleteUserBtn: '刪除使用者',
+    deleteUserConfirm: '確定要刪除此使用者？此操作將同時刪除其所有訂單，且無法復原。',
+    userDeleted: '使用者已刪除',
+    userNameUpdated: '名稱已更新',
+    cannotDeleteSelf: '無法刪除目前登入的帳號。',
+    cannotDeleteLastAdmin: '無法刪除最後一位管理員，系統至少需要一位管理員。',
+    userNotFound: '找不到該使用者。',
+
+    // Home page
+    heroTitle: '歡迎來到 E-Shop',
+    heroSubtitle: '您的一站式購物平台',
+    browseProductsBtn: '瀏覽商品',
+    getStartedBtn: '立即開始',
+
+    // OAuth login
+    orContinueWith: '或使用以下方式登入',
+    signInWithGoogle: '使用 Google 登入',
+    signInWithMicrosoft: '使用 Microsoft 登入',
+    signInWithDiscord: '使用 Discord 登入',
 
     // Product form
     formNameLabel: '名稱 *',
@@ -180,6 +202,28 @@ export const translations = {
     userRoleUpdated: 'Role updated',
     searchBtn: 'Search',
     loadingText: 'Loading...',
+    editNameBtn: 'Edit Name',
+    editUserTitle: 'Edit User',
+    saveBtn: 'Save',
+    deleteUserBtn: 'Delete User',
+    deleteUserConfirm: 'Are you sure you want to delete this user? This will also delete all their orders and cannot be undone.',
+    userDeleted: 'User deleted successfully',
+    userNameUpdated: 'Name updated',
+    cannotDeleteSelf: 'You cannot delete your own account.',
+    cannotDeleteLastAdmin: 'Cannot delete the last admin. At least one admin is required.',
+    userNotFound: 'User not found.',
+
+    // Home page
+    heroTitle: 'Welcome to E-Shop',
+    heroSubtitle: 'Your one-stop shop for everything',
+    browseProductsBtn: 'Browse Products',
+    getStartedBtn: 'Get Started',
+
+    // OAuth login
+    orContinueWith: 'Or continue with',
+    signInWithGoogle: 'Sign in with Google',
+    signInWithMicrosoft: 'Sign in with Microsoft',
+    signInWithDiscord: 'Sign in with Discord',
 
     // Product form
     formNameLabel: 'Name *',
