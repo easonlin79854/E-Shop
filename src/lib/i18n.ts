@@ -85,8 +85,7 @@ export const translations = {
     // OAuth login
     orContinueWith: '或使用以下方式登入',
     signInWithGoogle: '使用 Google 登入',
-    signInWithMicrosoft: '使用 Microsoft 登入',
-    signInWithDiscord: '使用 Discord 登入',
+    oauthAccountNotLinked: '此 Email 已透過其他方式註冊，請改用 Email/密碼登入，或使用原始登入方式。',
 
     // Product form
     formNameLabel: '名稱 *',
@@ -222,8 +221,7 @@ export const translations = {
     // OAuth login
     orContinueWith: 'Or continue with',
     signInWithGoogle: 'Sign in with Google',
-    signInWithMicrosoft: 'Sign in with Microsoft',
-    signInWithDiscord: 'Sign in with Discord',
+    oauthAccountNotLinked: 'This email is already registered with a different sign-in method. Please use Email/Password or your original sign-in method.',
 
     // Product form
     formNameLabel: 'Name *',
