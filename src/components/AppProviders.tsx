@@ -48,9 +48,10 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       .split('; ')
       .find((row) => row.startsWith('lang='))
       ?.split('=')[1];
-    // Only accept known valid values to prevent injection
+    // Decode and only accept known valid values to prevent injection
+    const decoded = rawCookieLang ? decodeURIComponent(rawCookieLang) : undefined;
     const cookieLang: Lang | undefined =
-      rawCookieLang === 'en' || rawCookieLang === 'zh' ? rawCookieLang : undefined;
+      decoded === 'en' || decoded === 'zh' ? decoded : undefined;
     const savedLang = (localStorage.getItem('lang') as Lang) || cookieLang || 'zh';
     setThemeState(savedTheme);
     setLangState(savedLang);
