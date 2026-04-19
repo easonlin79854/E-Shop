@@ -25,6 +25,11 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#37E05F" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<link rel="apple-touch-icon" href="/icons/icon-192.png" />
         {/* Apply saved theme before hydration to prevent flash */}
         <script
           dangerouslySetInnerHTML={{
