@@ -1,5 +1,8 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import Google from 'next-auth/providers/google';
+import MicrosoftEntraId from 'next-auth/providers/microsoft-entra-id';
+import Discord from 'next-auth/providers/discord';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
@@ -29,7 +32,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           where: { email: credentials.email as string },
         });
 
-        if (!user) {
+        if (!user || !user.password) {
           return null;
         }
 
@@ -50,12 +53,35 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         };
       },
     }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+    }),
+    MicrosoftEntraId({
+      clientId: process.env.MICROSOFT_CLIENT_ID ?? '',
+      clientSecret: process.env.MICROSOFT_CLIENT_SECRET ?? '',
+      issuer: process.env.MICROSOFT_TENANT_ID
+        ? `https://login.microsoftonline.com/${process.env.MICROSOFT_TENANT_ID}/v2.0/`
+        : 'https://login.microsoftonline.com/common/v2.0/',
+    }),
+    Discord({
+      clientId: process.env.DISCORD_CLIENT_ID ?? '',
+      clientSecret: process.env.DISCORD_CLIENT_SECRET ?? '',
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.role = (user as { id: string; role: Role }).role;
+      }
+      // Refresh role from DB if not set (e.g. OAuth first login)
+      if (!token.role && token.id) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { role: true },
+        });
+        if (dbUser) token.role = dbUser.role;
       }
       return token;
     },
