@@ -77,6 +77,27 @@ export const translations = {
     formSaving: '儲存中...',
     formCancel: '取消',
 
+    // Products page
+    noProductsAvailable: '目前沒有商品可供選購。',
+    noImage: '無圖片',
+    inStock: '件庫存',
+    outOfStock: '缺貨',
+
+    // Orders page
+    noOrdersYet: '您尚未下任何訂單。',
+    browseProducts: '瀏覽商品',
+    orderItems: '件商品',
+
+    // Order detail page
+    orderTitle: '訂單',
+    statusLabel: '狀態',
+    orderDate: '訂單日期',
+    totalLabel: '總計',
+    orderItemsTitle: '商品項目',
+    statusPending: '待處理',
+    statusCompleted: '已完成',
+    statusCancelled: '已取消',
+
     // Login / Register
     signInTitle: '登入',
     emailLabel: 'Email',
@@ -170,6 +191,27 @@ export const translations = {
     formSave: 'Save Product',
     formSaving: 'Saving...',
     formCancel: 'Cancel',
+
+    // Products page
+    noProductsAvailable: 'No products available.',
+    noImage: 'No image',
+    inStock: 'in stock',
+    outOfStock: 'Out of stock',
+
+    // Orders page
+    noOrdersYet: "You haven't placed any orders yet.",
+    browseProducts: 'Browse Products',
+    orderItems: 'item(s)',
+
+    // Order detail page
+    orderTitle: 'Order',
+    statusLabel: 'Status',
+    orderDate: 'Order Date',
+    totalLabel: 'Total',
+    orderItemsTitle: 'Items',
+    statusPending: 'PENDING',
+    statusCompleted: 'COMPLETED',
+    statusCancelled: 'CANCELLED',
 
     // Login / Register
     signInTitle: 'Sign In',
