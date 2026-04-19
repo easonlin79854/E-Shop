@@ -15,14 +15,15 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "next": "15.5.15",
     "@auth/prisma-adapter": "^2.7.2",
+    "@ducanh2912/next-pwa": "^10.2.9",
     "@prisma/client": "^5.22.0",
     "bcryptjs": "^2.4.3",
+    "next": "15.5.15",
     "next-auth": "^5.0.0-beta.25",
-    "resend": "^4.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "resend": "^4.0.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -37,8 +38,8 @@
     "prisma": "^5.22.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
-    "vitest": "^3.2.4",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   },
   "overrides": {
     "esbuild": "^0.25.0",
