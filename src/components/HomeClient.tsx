@@ -16,7 +16,7 @@ export function HomeClient({ isLoggedIn }: HomeClientProps) {
     <div className="relative flex flex-col items-center justify-center min-h-[60vh] py-20 text-center overflow-hidden">
       {/* Background decoration */}
       <div
-        aria-hidden
+        aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary-500/10 dark:bg-primary-500/5 blur-3xl" />
