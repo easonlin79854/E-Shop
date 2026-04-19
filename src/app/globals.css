@@ -10,4 +10,23 @@
   .dark body {
     @apply bg-gray-950 text-gray-100;
   }
+
+  /* Dark mode form element improvements */
+  input:not([type='checkbox']):not([type='radio']),
+  textarea,
+  select {
+    @apply bg-white text-gray-900 border-gray-300 placeholder-gray-400;
+  }
+
+  .dark input:not([type='checkbox']):not([type='radio']),
+  .dark textarea,
+  .dark select {
+    @apply bg-gray-800 text-gray-100 border-gray-600 placeholder-gray-500;
+  }
+
+  .dark input:not([type='checkbox']):not([type='radio']):focus,
+  .dark textarea:focus,
+  .dark select:focus {
+    @apply border-primary-500 ring-primary-500;
+  }
 }
