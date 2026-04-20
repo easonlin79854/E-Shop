@@ -55,7 +55,7 @@ export function CartPageClient({ isLoggedIn }: CartPageClientProps) {
           productId: item.productId,
           quantity: item.quantity,
         })),
-        note: note || undefined,
+        note: note.trim() || undefined,
       }),
     });
 
@@ -171,7 +171,7 @@ export function CartPageClient({ isLoggedIn }: CartPageClientProps) {
             value={note}
             onChange={(e) => handleNoteChange(e.target.value)}
             placeholder={t.notePlaceholder}
-            maxLength={120}
+            maxLength={100}
             rows={3}
             className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           />

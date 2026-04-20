@@ -21,14 +21,15 @@ export function AddToCartForm({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart({
+    addToCart(
+      {
         productId: product.id,
         name: product.name,
         price: product.price,
         imageUrl: product.imageUrl ?? null,
-      });
-    }
+      },
+      quantity
+    );
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
