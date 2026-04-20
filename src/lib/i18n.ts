@@ -49,6 +49,18 @@ export const translations = {
     colOrderStatus: '狀態',
     colDate: '日期',
     manageOrder: '管理',
+    deleteOrderBtn: '刪除訂單',
+    deleteOrderConfirm: '確定要刪除此訂單嗎？此操作無法復原。',
+    deleteOrderSuccess: '訂單已刪除',
+    deleteOrderNotCancelled: '只能刪除已取消的訂單，請先取消訂單後再刪除。',
+    orderNotFound: '找不到此訂單。',
+
+    // Cancel order (customer)
+    cancelOrderBtn: '取消訂單',
+    cancelOrderConfirm: '確定要取消此訂單嗎？',
+    cancelSuccess: '訂單已成功取消，商品庫存已回補。',
+    cancelNotPending: '只能取消待處理（PENDING）的訂單。',
+    cancelForbidden: '您無法取消他人的訂單。',
 
     // Admin users page
     usersTitle: '使用者管理',
@@ -185,6 +197,18 @@ export const translations = {
     colOrderStatus: 'Status',
     colDate: 'Date',
     manageOrder: 'Manage',
+    deleteOrderBtn: 'Delete Order',
+    deleteOrderConfirm: 'Are you sure you want to delete this order? This action cannot be undone.',
+    deleteOrderSuccess: 'Order deleted successfully',
+    deleteOrderNotCancelled: 'Only cancelled orders can be deleted. Please cancel the order first.',
+    orderNotFound: 'Order not found.',
+
+    // Cancel order (customer)
+    cancelOrderBtn: 'Cancel Order',
+    cancelOrderConfirm: 'Are you sure you want to cancel this order?',
+    cancelSuccess: 'Order cancelled successfully. Stock has been restored.',
+    cancelNotPending: 'Only pending orders can be cancelled.',
+    cancelForbidden: 'You are not allowed to cancel this order.',
 
     // Admin users page
     usersTitle: 'User Management',
