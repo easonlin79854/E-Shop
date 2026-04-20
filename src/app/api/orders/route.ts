@@ -40,7 +40,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { items } = await req.json();
+    const { items, note: rawNote } = await req.json();
+
+    const trimmedNote = typeof rawNote === 'string' ? rawNote.trim() : '';
+    if (trimmedNote.length > 100) {
+      return NextResponse.json(
+        { error: 'Note cannot exceed 100 characters' },
+        { status: 400 }
+      );
+    }
+    const note = trimmedNote.length > 0 ? trimmedNote : null;
 
     if (!items || items.length === 0) {
       return NextResponse.json(
@@ -97,6 +106,7 @@ export async function POST(req: NextRequest) {
           orderNumber,
           userId: session.user.id,
           totalAmount,
+          note,
           items: {
             create: orderItems,
           },

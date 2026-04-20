@@ -20,6 +20,7 @@ interface Order {
   status: string;
   totalAmount: number;
   createdAt: string;
+  note: string | null;
   items: OrderItem[];
 }
 
@@ -92,6 +93,12 @@ export function OrderDetailClient({ order }: { order: Order }) {
             ${Number(order.totalAmount).toFixed(2)}
           </span>
         </div>
+        {order.note && (
+          <div className="flex items-start justify-between mt-4 pt-4 border-t">
+            <span className="text-gray-600 dark:text-gray-400">{t.noteLabel}</span>
+            <span className="text-right max-w-xs">{order.note}</span>
+          </div>
+        )}
       </div>
 
       {order.status === 'PENDING' && (

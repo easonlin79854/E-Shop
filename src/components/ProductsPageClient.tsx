@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useLang } from './AppProviders';
 import { translations } from '@/lib/i18n';
 import { safeImageUrl } from '@/lib/safeImageUrl';
+import { useCart } from '@/contexts/CartContext';
 
 interface Product {
   id: string;
@@ -17,6 +18,7 @@ interface Product {
 export function ProductsPageClient({ products }: { products: Product[] }) {
   const { lang } = useLang();
   const t = translations[lang];
+  const { addToCart } = useCart();
 
   return (
     <div>
@@ -26,8 +28,8 @@ export function ProductsPageClient({ products }: { products: Product[] }) {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product) => (
-            <Link key={product.id} href={`/products/${product.id}`}>
-              <div className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+            <div key={product.id} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+              <Link href={`/products/${product.id}`} className="flex-1">
                 {safeImageUrl(product.imageUrl) ? (
                   <img
                     src={safeImageUrl(product.imageUrl)!}
@@ -55,8 +57,24 @@ export function ProductsPageClient({ products }: { products: Product[] }) {
                     </span>
                   </div>
                 </div>
+              </Link>
+              <div className="px-4 pb-4">
+                <button
+                  onClick={() =>
+                    addToCart({
+                      productId: product.id,
+                      name: product.name,
+                      price: product.price,
+                      imageUrl: product.imageUrl,
+                    })
+                  }
+                  disabled={product.stock === 0}
+                  className="w-full bg-primary-600 text-white py-2 rounded-md hover:bg-primary-700 disabled:opacity-50 text-sm"
+                >
+                  {product.stock === 0 ? t.outOfStock : t.addToCart}
+                </button>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       )}

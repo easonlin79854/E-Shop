@@ -131,6 +131,28 @@ export const translations = {
     statusCompleted: '已完成',
     statusCancelled: '已取消',
 
+    // Order note
+    noteLabel: '備註',
+    notePlaceholder: '輸入備註（選填）',
+    noteOptional: '選填',
+    noteTooLong: '備註不能超過 100 字',
+
+    // Cart
+    cart: '購物車',
+    cartEmpty: '購物車是空的',
+    addToCart: '加入購物車',
+    addedToCart: '已加入購物車',
+    cartTotal: '總計',
+    cartQuantity: '數量',
+    cartRemove: '移除',
+    checkout: '結帳',
+    placeOrder: '下訂單',
+    placing: '處理中...',
+    cartItems: '購物車商品',
+    continueShopping: '繼續購物',
+    loginToCheckout: '登入以結帳',
+    unitPrice: '單價',
+
     // Login / Register
     signInTitle: '登入',
     emailLabel: 'Email',
@@ -278,6 +300,28 @@ export const translations = {
     statusPending: 'PENDING',
     statusCompleted: 'COMPLETED',
     statusCancelled: 'CANCELLED',
+
+    // Order note
+    noteLabel: 'Note',
+    notePlaceholder: 'Enter a note (optional)',
+    noteOptional: 'Optional',
+    noteTooLong: 'Note cannot exceed 100 characters',
+
+    // Cart
+    cart: 'Cart',
+    cartEmpty: 'Your cart is empty',
+    addToCart: 'Add to Cart',
+    addedToCart: 'Added to cart',
+    cartTotal: 'Total',
+    cartQuantity: 'Qty',
+    cartRemove: 'Remove',
+    checkout: 'Checkout',
+    placeOrder: 'Place Order',
+    placing: 'Processing...',
+    cartItems: 'Cart Items',
+    continueShopping: 'Continue Shopping',
+    loginToCheckout: 'Sign in to Checkout',
+    unitPrice: 'Price',
 
     // Login / Register
     signInTitle: 'Sign In',

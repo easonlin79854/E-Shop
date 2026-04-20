@@ -12,6 +12,7 @@ interface Order {
   totalAmount: unknown;
   status: string;
   createdAt: Date | string;
+  note?: string | null;
 }
 
 export function AdminOrdersClient({ orders: initialOrders }: { orders: Order[] }) {
@@ -70,6 +71,7 @@ export function AdminOrdersClient({ orders: initialOrders }: { orders: Order[] }
               <th className="text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300">{t.colTotal}</th>
               <th className="text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300">{t.colOrderStatus}</th>
               <th className="text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300">{t.colDate}</th>
+              <th className="text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300">{t.noteLabel}</th>
               <th className="text-left px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300">{t.colActions}</th>
             </tr>
           </thead>
@@ -94,6 +96,9 @@ export function AdminOrdersClient({ orders: initialOrders }: { orders: Order[] }
                 </td>
                 <td className="px-4 py-3 text-sm">
                   {new Date(order.createdAt).toLocaleDateString()}
+                </td>
+                <td className="px-4 py-3 text-sm text-gray-500 max-w-xs truncate">
+                  {order.note || '—'}
                 </td>
                 <td className="px-4 py-3 flex items-center gap-3">
                   <Link

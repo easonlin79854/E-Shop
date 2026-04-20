@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { type Lang } from '@/lib/i18n';
+import { CartProvider } from '@/contexts/CartContext';
 
 function setCookieLang(lang: Lang) {
   document.cookie = `lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
@@ -81,7 +82,9 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <LangContext.Provider value={{ lang, setLang }}>
-        {children}
+        <CartProvider>
+          {children}
+        </CartProvider>
       </LangContext.Provider>
     </ThemeContext.Provider>
   );
