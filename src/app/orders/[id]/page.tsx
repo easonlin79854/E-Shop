@@ -38,6 +38,7 @@ export default async function OrderDetailPage({
     status: order.status,
     totalAmount: Number(order.totalAmount),
     createdAt: order.createdAt.toISOString(),
+    note: order.note ?? null,
     items: order.items.map((item) => ({
       id: item.id,
       price: Number(item.price),

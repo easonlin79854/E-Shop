@@ -22,6 +22,7 @@ export default async function OrdersPage() {
     status: o.status,
     totalAmount: Number(o.totalAmount),
     createdAt: o.createdAt.toISOString(),
+    note: o.note ?? null,
     items: o.items.map((i) => ({ id: i.id, quantity: i.quantity })),
   }));
 

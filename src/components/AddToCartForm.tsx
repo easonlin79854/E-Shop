@@ -1,68 +1,60 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useLang } from './AppProviders';
+import { translations } from '@/lib/i18n';
+import { useCart } from '@/contexts/CartContext';
 
 interface Product {
   id: string;
   name: string;
   price: number;
+  imageUrl?: string | null;
   stock: number;
 }
 
 export function AddToCartForm({ product }: { product: Product }) {
-  const router = useRouter();
+  const { addToCart } = useCart();
+  const { lang } = useLang();
+  const t = translations[lang];
   const [quantity, setQuantity] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [added, setAdded] = useState(false);
 
-  const handleOrder = async () => {
-    setLoading(true);
-    setMessage('');
-
-    const res = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        items: [{ productId: product.id, quantity }],
-      }),
-    });
-
-    setLoading(false);
-
-    if (res.ok) {
-      const order = await res.json();
-      router.push(`/orders/${order.id}`);
-    } else if (res.status === 401) {
-      router.push('/login');
-    } else {
-      const data = await res.json();
-      setMessage(data.error || 'Failed to place order');
+  const handleAddToCart = () => {
+    for (let i = 0; i < quantity; i++) {
+      addToCart({
+        productId: product.id,
+        name: product.name,
+        price: product.price,
+        imageUrl: product.imageUrl ?? null,
+      });
     }
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
     <div className="space-y-4">
-      {message && (
-        <div className="text-red-600 text-sm">{message}</div>
+      {added && (
+        <div className="text-green-600 text-sm">{t.addedToCart}</div>
       )}
       <div className="flex items-center gap-3">
-        <label className="text-sm font-medium">Quantity:</label>
+        <label className="text-sm font-medium">{t.cartQuantity}:</label>
         <input
           type="number"
           min={1}
           max={product.stock}
           value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-          className="w-20 border border-gray-300 rounded-md px-3 py-1"
+          onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
+          className="w-20 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded-md px-3 py-1"
         />
       </div>
       <button
-        onClick={handleOrder}
-        disabled={loading || product.stock === 0}
+        onClick={handleAddToCart}
+        disabled={product.stock === 0}
         className="w-full bg-primary-600 text-white py-3 rounded-md hover:bg-primary-700 disabled:opacity-50"
       >
-        {loading ? 'Placing order...' : 'Buy Now'}
+        {product.stock === 0 ? t.outOfStock : t.addToCart}
       </button>
     </div>
   );

@@ -37,6 +37,11 @@ export default async function AdminOrderDetailPage({
           <p className="text-gray-600">
             Total: ${Number(order.totalAmount).toFixed(2)}
           </p>
+          {order.note && (
+            <p className="text-gray-600 mt-2">
+              Note: {order.note}
+            </p>
+          )}
         </div>
       </div>
       <div className="border rounded-lg p-4 mb-6">

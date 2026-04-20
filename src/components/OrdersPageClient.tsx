@@ -15,6 +15,7 @@ interface Order {
   status: string;
   totalAmount: number;
   createdAt: string;
+  note: string | null;
   items: OrderItem[];
 }
 
@@ -64,6 +65,12 @@ export function OrdersPageClient({ orders }: { orders: Order[] }) {
                   <span className="mx-2">•</span>
                   <span>{new Date(order.createdAt).toLocaleDateString()}</span>
                 </div>
+                {order.note && (
+                  <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-medium">{t.noteLabel}：</span>
+                    {order.note}
+                  </div>
+                )}
               </div>
             </Link>
           ))}
