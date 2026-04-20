@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { useLang } from '@/components/AppProviders';
 import { translations } from '@/lib/i18n';
@@ -13,13 +14,53 @@ interface Order {
   createdAt: Date | string;
 }
 
-export function AdminOrdersClient({ orders }: { orders: Order[] }) {
+export function AdminOrdersClient({ orders: initialOrders }: { orders: Order[] }) {
   const { lang } = useLang();
   const t = translations[lang];
+  const [orders, setOrders] = useState<Order[]>(initialOrders);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+
+  const handleDeleteConfirm = async (order: Order) => {
+    if (!confirm(t.deleteOrderConfirm)) return;
+    setDeletingId(order.id);
+    setError('');
+    setSuccessMsg('');
+
+    try {
+      const res = await fetch(`/api/admin/orders/${order.id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || 'Failed to delete order');
+      } else {
+        setOrders((prev) => prev.filter((o) => o.id !== order.id));
+        setSuccessMsg(t.deleteOrderSuccess);
+      }
+    } catch {
+      setError('Failed to delete order');
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">{t.allOrders}</h1>
+
+      {error && (
+        <div className="mb-4 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 p-3 rounded-md text-sm">
+          {error}
+        </div>
+      )}
+      {successMsg && (
+        <div className="mb-4 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 p-3 rounded-md text-sm">
+          {successMsg}
+        </div>
+      )}
+
       <div className="border dark:border-gray-700 rounded-lg overflow-hidden">
         <table className="w-full">
           <thead className="bg-gray-50 dark:bg-gray-800">
@@ -54,13 +95,22 @@ export function AdminOrdersClient({ orders }: { orders: Order[] }) {
                 <td className="px-4 py-3 text-sm">
                   {new Date(order.createdAt).toLocaleDateString()}
                 </td>
-                <td className="px-4 py-3">
+                <td className="px-4 py-3 flex items-center gap-3">
                   <Link
                     href={`/admin/orders/${order.id}`}
                     className="text-sm text-primary-600 hover:underline"
                   >
                     {t.manageOrder}
                   </Link>
+                  {order.status === 'CANCELLED' && (
+                    <button
+                      onClick={() => handleDeleteConfirm(order)}
+                      disabled={deletingId === order.id}
+                      className="text-sm text-red-600 hover:underline disabled:opacity-50"
+                    >
+                      {deletingId === order.id ? '...' : t.deleteOrderBtn}
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
@@ -70,3 +120,4 @@ export function AdminOrdersClient({ orders }: { orders: Order[] }) {
     </div>
   );
 }
+

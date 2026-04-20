@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useLang } from './AppProviders';
 import { translations } from '@/lib/i18n';
 
@@ -24,6 +26,10 @@ interface Order {
 export function OrderDetailClient({ order }: { order: Order }) {
   const { lang } = useLang();
   const t = translations[lang];
+  const router = useRouter();
+  const [cancelling, setCancelling] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error'>('error');
 
   const statusLabel =
     order.status === 'COMPLETED'
@@ -31,6 +37,30 @@ export function OrderDetailClient({ order }: { order: Order }) {
       : order.status === 'CANCELLED'
       ? t.statusCancelled
       : t.statusPending;
+
+  const handleCancel = async () => {
+    if (!confirm(t.cancelOrderConfirm)) return;
+    setCancelling(true);
+    setMessage('');
+
+    const res = await fetch(`/api/orders/${order.id}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'CANCELLED' }),
+    });
+
+    setCancelling(false);
+
+    if (res.ok) {
+      setMessage(t.cancelSuccess);
+      setMessageType('success');
+      router.refresh();
+    } else {
+      const data = await res.json();
+      setMessage(data.error || 'Failed to cancel order');
+      setMessageType('error');
+    }
+  };
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -63,6 +93,31 @@ export function OrderDetailClient({ order }: { order: Order }) {
           </span>
         </div>
       </div>
+
+      {order.status === 'PENDING' && (
+        <div className="mb-6">
+          <button
+            onClick={handleCancel}
+            disabled={cancelling}
+            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 disabled:opacity-50"
+          >
+            {cancelling ? '...' : t.cancelOrderBtn}
+          </button>
+        </div>
+      )}
+
+      {message && (
+        <div
+          className={`mb-6 p-3 rounded-md text-sm ${
+            messageType === 'success'
+              ? 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+              : 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+          }`}
+        >
+          {message}
+        </div>
+      )}
+
       <h2 className="text-xl font-semibold mb-4">{t.orderItemsTitle}</h2>
       <div className="space-y-3">
         {order.items.map((item) => (
@@ -85,3 +140,4 @@ export function OrderDetailClient({ order }: { order: Order }) {
     </div>
   );
 }
+
